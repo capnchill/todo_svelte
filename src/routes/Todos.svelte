@@ -1,7 +1,7 @@
 <script>
 	import Addtodo from './Addtodo.svelte';
 	import Todo from './Todo.svelte';
-	import Filtertodo from './Filtertodo.svelte';
+	import Filterbutton from './Filterbutton.svelte';
 	import Bulkaction from './Bulkaction.svelte';
 </script>
 
@@ -14,7 +14,7 @@
 </div>
 
 <div class="mx-auto mb-4">
-	<Filtertodo />
+	<Filterbutton />
 </div>
 
 <div class="mx-auto w-4/5">
