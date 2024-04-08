@@ -1,6 +1,8 @@
 <script>
-    import "../app.css"
+	import '../app.css';
+	import Todos from './Todos.svelte';
 </script>
 
-<h1 class="text-red-500">Hey all</h1>
-
+<div class="mx-auto mt-10 flex max-w-2xl flex-col content-center px-10 py-4">
+	<Todos />
+</div>
