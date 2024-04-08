@@ -18,6 +18,13 @@
 
 		console.log(todos);
 	}
+
+	function deleteTodo(event) {
+		let id = event.detail.id;
+		let index = todos.findIndex((todo) => todo.id === id);
+		todos.splice(id, 1);
+		todos = todos;
+	}
 </script>
 
 <div class="mx-auto mb-4">
@@ -35,10 +42,11 @@
 
 	<div class="mx-auto w-4/5">
 		{#each todos as todo (todo.id)}
-			<Todo {todo} />
+			<Todo {todo} on:click={deleteTodo} />
 		{/each}
 	</div>
 
 	<div class="border-[1px] border-slate-400"></div>
+
 	<Bulkaction />
 {/if}

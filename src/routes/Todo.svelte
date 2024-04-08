@@ -1,6 +1,15 @@
 <script>
+	import { createEventDispatcher } from 'svelte';
+
 	let editMode = false;
 	export let todo;
+
+	let dispatch = createEventDispatcher();
+
+	function deleteTodo(id) {
+		// console.log('Attempting to dispatch click event');
+		dispatch('click', { id });
+	}
 </script>
 
 <div class="mb-4">
@@ -29,6 +38,7 @@
 
 		<button
 			class="mt-10 flex-1 border-2 border-slate-400 bg-white px-4 text-lg text-black hover:underline focus:outline-none sm:mt-0"
+			on:click={() => deleteTodo(todo.id)}
 		>
 			Delete
 		</button>
