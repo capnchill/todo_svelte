@@ -5,8 +5,12 @@
 	const dispatch = createEventDispatcher();
 
 	function addTodo() {
-		dispatch('submit', { task });
-		task = '';
+		if (!(task === undefined || task === null || task === '')) {
+			dispatch('submit', { task });
+			task = '';
+		} else {
+			throw new Error('task is undefined');
+		}
 	}
 </script>
 

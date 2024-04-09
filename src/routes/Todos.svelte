@@ -25,8 +25,11 @@
 	function deleteTodo(event) {
 		let id = event.detail.id;
 		let index = todos.findIndex((todo) => todo.id === id);
-		todos.splice(id, 1);
+		todos.splice(index, 1);
 		todos = todos;
+
+		activeTodos = todos.filter((todo) => todo.completed === false);
+		completedTodos = todos.filter((todo) => todo.completed === true);
 	}
 
 	function toggleCheck() {
@@ -56,7 +59,6 @@
 		all = false;
 		active = true;
 		completed = false;
-
 		activeTodos = todos.filter((todo) => todo.completed === false);
 	}
 
@@ -65,8 +67,16 @@
 		all = false;
 		active = false;
 		completed = true;
-
 		completedTodos = todos.filter((todo) => todo.completed === true);
+	}
+
+	function editTask(event) {
+		let updatedTask = event.detail.updatedTodo;
+		console.log(updatedTask);
+		let id = event.detail.id;
+		console.log(id);
+		let index = todos.findIndex((todo) => todo.id === id);
+		todos[index].task = updatedTask;
 	}
 </script>
 
@@ -90,19 +100,19 @@
 	<div class="mx-auto w-4/5">
 		{#if all}
 			{#each todos as todo (todo.id)}
-				<Todo {todo} on:click={deleteTodo} />
+				<Todo {todo} on:click={deleteTodo} on:clickEdit={editTask} />
 			{/each}
 		{/if}
 
 		{#if active}
 			{#each activeTodos as todo (todo.id)}
-				<Todo {todo} on:click={deleteTodo} />
+				<Todo {todo} on:click={deleteTodo} on:clickEdit={editTask} />
 			{/each}
 		{/if}
 
 		{#if completed}
 			{#each completedTodos as todo (todo.id)}
-				<Todo {todo} on:click={deleteTodo} />
+				<Todo {todo} on:click={deleteTodo} on:clickEdit={editTask} />
 			{/each}
 		{/if}
 	</div>
