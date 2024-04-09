@@ -6,6 +6,9 @@
 	import { generateRandomId } from './utils.js';
 
 	let todos = [];
+	let all = true;
+	let active = false;
+	let completed = false;
 
 	function addTodo(event) {
 		let todo = {
@@ -41,6 +44,30 @@
 		todos = active;
 		console.log(active);
 	}
+
+	function clickAll() {
+		all = true;
+		active = false;
+		completed = false;
+	}
+
+	let activeTodos = [];
+	function clickActive() {
+		all = false;
+		active = true;
+		completed = false;
+
+		activeTodos = todos.filter((todo) => todo.completed === false);
+	}
+
+	let completedTodos = [];
+	function clickCompleted() {
+		all = false;
+		active = false;
+		completed = true;
+
+		completedTodos = todos.filter((todo) => todo.completed === true);
+	}
 </script>
 
 <div class="mx-auto mb-4">
@@ -53,13 +80,31 @@
 
 {#if todos.length > 0}
 	<div class="mx-auto mb-4">
-		<Filterbutton />
+		<Filterbutton
+			on:clickAll={clickAll}
+			on:clickActive={clickActive}
+			on:clickCompleted={clickCompleted}
+		/>
 	</div>
 
 	<div class="mx-auto w-4/5">
-		{#each todos as todo (todo.id)}
-			<Todo {todo} on:click={deleteTodo} />
-		{/each}
+		{#if all}
+			{#each todos as todo (todo.id)}
+				<Todo {todo} on:click={deleteTodo} />
+			{/each}
+		{/if}
+
+		{#if active}
+			{#each activeTodos as todo (todo.id)}
+				<Todo {todo} on:click={deleteTodo} />
+			{/each}
+		{/if}
+
+		{#if completed}
+			{#each completedTodos as todo (todo.id)}
+				<Todo {todo} on:click={deleteTodo} />
+			{/each}
+		{/if}
 	</div>
 
 	<div class="border-[1px] border-slate-400"></div>
